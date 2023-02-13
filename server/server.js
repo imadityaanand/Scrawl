@@ -7,8 +7,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
-const workoutRoutes = require('./routes/workouts');
-
 const app = express();
 
 // middleware
@@ -18,6 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
     secret: "Our little secret.",
@@ -28,8 +27,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// routes
-app.use('/api/workouts', workoutRoutes);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
@@ -45,10 +42,9 @@ mongoose.connect(process.env.MONGO_URI)
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-// mongoose.set("useCreateIndex", true);
 
 // creating user schema
-const userSchema = new mongoose.Schema ({
+const userSchema = new mongoose.Schema({
     username: String,
     name: String,
     googleId: String,
@@ -62,6 +58,8 @@ userSchema.plugin(findOrCreate);
 // creating a user
 const User = new mongoose.model("User", userSchema);
 
+
+// Sign Up with Google
 passport.use(User.createStrategy());
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -78,7 +76,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    // console.log(profile);
+    console.log(profile);
     console.log(profile);
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
       return cb(err, user);
@@ -88,7 +86,7 @@ passport.use(new GoogleStrategy({
 
 
 app.get("/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 app.get("/auth/google/callback",
@@ -100,4 +98,39 @@ app.get("/auth/google/callback",
 
 app.get("/logout", function(req, res){
     res.redirect("http://localhost:3000/");
+});
+
+
+
+// Regular Sign up and Log in routes
+app.post("/signup", function(req, res) {
+  const newUser = new User({
+    username: req.body.email,
+    name: req.body.name
+  });
+  console.log(req.body);
+  newUser.save(function(err) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.redirect("http://localhost:3000/home");
+    }
+  });
+})
+
+app.post("/login", function(req, res) {
+  const username = req.body.email;
+  console.log(req.body);
+  const name = req.body.name;
+  User.findOne({username: username}, function(err, foundUser) {
+    if(err) {
+      console.log(err);
+    } else {
+      if(foundUser) {
+        res.redirect("http://localhost:3000/home");
+      } else {
+        res.send("No user with this email");
+      }
+    }
+  });
 });
