@@ -1,0 +1,69 @@
+.landingpage {
+    margin: 30px 80px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.logo img {
+    margin-right: 15px;
+    height: 22px;
+}
+
+.landing-content {
+    margin-top: 100px;
+}
+
+.landingpage p {
+    font-weight: 600;
+    opacity: 0.5;
+    margin-bottom: 50px;
+}
+
+.login-btn, .signup-btn {
+    min-width: 150px;
+    padding: 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    cursor: pointer;
+}
+
+.login-btn {
+    background-color: #055FFC;
+    border: none;
+    color: white;
+}
+
+.signup-btn {
+    border: 2px solid #055FFC;
+    color: #055FFC;
+    background-color: transparent;
+}
+
+.pbcc {
+    font-size: 10px;
+    margin-top: 50px;
+    font-weight: 500;
+}
+
+.pbcc:hover {
+    cursor: pointer;
+}
+
+.pbcc img {
+    height: 15px;
+    margin-right: 10px;
+}
+
+.illustration {
+    height: 350px;
+    margin-left: 200px;
+}
