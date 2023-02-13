@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './LandingPage.css'
 
 function LandingPage() {
@@ -14,8 +15,8 @@ function LandingPage() {
           <p>Connect with a community of students, upload and access quality  handwritten notes. Effortlessly browse, share and like notes, all in one place.</p>
 
           <div className='flex'>
-            <button className='login-btn'>Log In</button>
-            <button className='signup-btn'>Sign Up</button>
+            <Link to='/login'><button className='login-btn'>Log In</button></Link>
+            <Link to='/signup'><button className='signup-btn'>Sign Up</button></Link>
           </div>
 
           <div className='flex pbcc'>

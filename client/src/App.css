@@ -1,5 +1,10 @@
+* {
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
 h1 {
-    font-size: 25px;
+    font-size: 23px;
 }
 
 .flex {
