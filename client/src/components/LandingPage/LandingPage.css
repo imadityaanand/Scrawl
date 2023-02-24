@@ -67,3 +67,56 @@
     height: 350px;
     margin-left: 200px;
 }
+
+
+/* Media queries */
+
+@media (max-width:600px) {
+    .logo {
+        font-size: 18px;
+    }
+
+    .logo img {
+        margin-right: 10px;
+        height: 18px;
+    }
+
+    .landingpage {
+        margin: 30px 30px;
+    }
+
+    .landingpage h1 {
+        font-size: 20px;
+    }
+
+    .landingpage p {
+        font-size: 14px;
+    }
+
+    .landingpage .buttons-div {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .landingpage .buttons-div button {
+        margin: 5px 0;
+        width: 70vw;
+    }
+
+    .landing-content {
+        margin-top: 80px;
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+    }
+
+    .illustration {
+        height: 50vw;
+        margin-left: 0px;
+        margin-bottom: 50px;
+    }
+
+    .pbcc {
+        justify-content: center;
+    }
+}

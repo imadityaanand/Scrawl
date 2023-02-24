@@ -7,25 +7,26 @@ function LoginPage() {
     <div className='login'>
       <Link to='/' style={{ color: 'black' }}>
         <div className='logo'>
-          <img src='../../../assets/logo-black.svg' alt='logo' />
-          Scrawl
+          <img src='../../../assets/logo2-black.svg' alt='logo' />
         </div>
       </Link>
 
       <div className='login-container'>
         <h1>Log In</h1>
-        <form action="http://localhost:4000/auth/google">
+        <form action="http://localhost:4000/login" method='POST'>
             <p>Email*</p>
-            <input placeholder='mail@website.com' />
+            <input placeholder='mail@website.com' name='email' />
             <p>Password*</p>
-            <input placeholder='Password' type='password' />
+            <input placeholder='Password' type='password' name='password' />
 
-            <div className='loginpage-btn'>Log In</div>
+            <button className='loginpage-btn' type='submit'>Log In</button>
             <div className='or-div'>
                 <div className='line'></div>
                 or Log In with Google
                 <div className='line'></div>
             </div>
+        </form>
+        <form action="http://localhost:4000/auth/google">
             <button className='loginpage-btn google' type='submit'>
                 <img src='../../../assets/googlelogo.svg' alt='google'/>
                 Log In with Google

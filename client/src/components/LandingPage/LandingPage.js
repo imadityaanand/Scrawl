@@ -6,15 +6,14 @@ function LandingPage() {
   return (
     <div className='landingpage'>
       <div className='logo'>
-        <img src='../../../assets/logo-black.svg' alt='logo' />
-        Scrawl
+        <img src='../../../assets/logo2-black.svg' alt='logo' />
       </div>
       <div className='landing-content flex'>
         <div>
           <h1>From Classroom to Community, <br /> Notes at Your Fingertips</h1>
           <p>Connect with a community of students, upload and access quality  handwritten notes. Effortlessly browse, share and like notes, all in one place.</p>
 
-          <div className='flex'>
+          <div className='flex buttons-div'>
             <Link to='/login'><button className='login-btn'>Log In</button></Link>
             <Link to='/signup'><button className='signup-btn'>Sign Up</button></Link>
           </div>

@@ -87,3 +87,24 @@
     background-color: black;
     opacity: 0.5;
 }
+
+
+/* Media queries */
+
+@media (max-width:600px) {
+    .login {
+        margin: 30px 30px;
+    }
+
+    .login-container {
+        margin: 0px 30px;
+        bottom: 100px;
+        right: 0;
+        left: 0;
+        top: auto;
+    }
+
+    .login h1 {
+        margin-bottom: 30px;
+    }
+}
