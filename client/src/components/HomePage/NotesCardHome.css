@@ -1,0 +1,47 @@
+.notescard-home {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.notescard-home:hover {
+    cursor: pointer;
+}
+
+.notescard-home .notes-thumb {
+    height: 80px;
+    background-size: cover;
+}
+
+.notescard-home .title {
+    margin: 10px 10px 0;
+}
+
+.notescard-home .username, .notescard-home .pages {
+    opacity: 0.5;
+    margin: 10px;
+}
+
+.notescard-home .info {
+    justify-content: space-between;
+}
+
+
+
+
+
+
+/* Media queries */
+
+@media (max-width:600px) {
+    .notescard-home {
+        min-width: 180px;
+    }
+
+    .notescard-home .notes-thumb {
+        height: 90px;
+    }
+}

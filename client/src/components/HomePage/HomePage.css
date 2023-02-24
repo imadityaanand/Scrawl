@@ -1,0 +1,15 @@
+.homepage p {
+    margin: 0;
+}
+
+.cards-container {
+    flex-wrap: nowrap;
+}
+
+.categories-container, .cards-container {
+    overflow: scroll;
+}
+
+.categories-container::-webkit-scrollbar, .cards-container::-webkit-scrollbar {
+    display: none;
+}

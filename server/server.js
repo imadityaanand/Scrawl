@@ -212,6 +212,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const pdfSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  tags: [String],
   data: Buffer
 });
 const Pdf = mongoose.model('Pdf', pdfSchema);
@@ -219,8 +222,9 @@ const Pdf = mongoose.model('Pdf', pdfSchema);
 app.post('/upload', upload.single('pdf'), async (req, res) => {
   console.log('File upload request received');
   const filePath = req.file.path;
+  const { title, description, tags } = req.body;
   const fileContent = fs.readFileSync(filePath);
-  const pdf = new Pdf({ data: fileContent });
+  const pdf = new Pdf({ title, description, tags, data: fileContent });
   await pdf.save();
   console.log("File uploaded successfully");
   res.send('File uploaded successfully');
