@@ -1,0 +1,30 @@
+.blend-bg {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    mix-blend-mode: difference;
+    position: absolute;
+    z-index: 2;
+}
+
+.blend-bg.active {
+    display: block;
+}
+
+.dark-button {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    z-index: 3;
+}
+
+.pdf-navbar {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position: fixed;
+    bottom: 50px;
+    margin: auto;
+    z-index: 3;
+}

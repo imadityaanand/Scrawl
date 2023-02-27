@@ -12,6 +12,7 @@ const saltRounds = 12;
 const multer = require('multer');
 const fs = require('fs');
 const cors = require('cors');
+const zlib = require('zlib');
 // const mongodb = require('mongodb');
 // const MongoClient = mongodb.MongoClient;
 
@@ -224,8 +225,55 @@ app.post('/upload', upload.single('pdf'), async (req, res) => {
   const filePath = req.file.path;
   const { title, description, tags } = req.body;
   const fileContent = fs.readFileSync(filePath);
-  const pdf = new Pdf({ title, description, tags, data: fileContent });
+  const compressedContent = zlib.gzipSync(fileContent);
+  const pdf = new Pdf({ title, description, tags, data: compressedContent });
   await pdf.save();
   console.log("File uploaded successfully");
   res.send('File uploaded successfully');
+});
+
+
+// Handle PDF Requests
+
+app.get('/pdfs', async (req, res) => {
+  const pdfs = await Pdf.find({});
+  // console.log(pdfs);
+  res.send(pdfs);
+});
+
+// handle pdf view requests
+
+// app.get('/pdfs/:id', async (req, res) => {
+//   const id = req.params.id;
+//   const pdf = await Pdf.findById(id);
+
+//   if (!pdf) {
+//     return res.status(404).send('Pdf not found');
+//   }
+
+//   const pdfPath = path.join(__dirname, 'uploads', `${pdf._id}`);
+//   fs.writeFileSync(pdfPath, pdf.data);
+
+//   res.sendFile(pdfPath, { headers: { 'Content-Type': 'application/pdf' } }, (err) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(err.status).end();
+//     } else {
+//       fs.unlinkSync(pdfPath);
+//     }
+//   });
+// });
+
+app.get('/pdf/:id', async (req, res) => {
+  const pdf = await Pdf.findById(req.params.id);
+  const decompressedContent = zlib.gunzipSync(pdf.data);
+  res.set('Content-Type', 'application/pdf');
+  res.send(decompressedContent);
+  // res.send("pdf")
+
+  // const pdf = await Pdf.findById(req.params.id);
+  // const decompressedContent = zlib.gunzipSync(pdf.data);
+  // res.set('Content-Type', 'application/pdf');
+  // res.contentType("application/pdf");
+  // res.send(decompressedContent);
 });

@@ -3,6 +3,7 @@ import './HomePage.css'
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../SearchBar/SearchBar';
 import NotesCardHome from './NotesCardHome';
+import PdfList from '../PdfNotes/PdfList';
 
 function HomePage() {
   return (
@@ -101,6 +102,12 @@ function HomePage() {
             pages = '3'
           />
         </div>
+
+        <h6>FROM DATABASE</h6>
+        <PdfList />
+
+        {/* <div className='sample-bg'></div>
+        <img className='sample' src='../../../assets/notes1.png' alt='notes-sample' /> */}
       </div>
     </div>
   )
