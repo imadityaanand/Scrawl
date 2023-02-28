@@ -1,0 +1,43 @@
+.searchbar {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    width: 450px;
+    background-color: white;
+    border-radius: 45px;
+    margin-bottom: 30px;
+}
+
+.searchbar .icon {
+    margin: 0 20px;
+    height: 18px;
+}
+
+.searchbar input {
+    height: 45px;
+    width: 400px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+}
+
+.searchbar input:focus {
+    outline: none;
+}
+
+
+
+
+
+
+/* Media queries */
+
+@media (max-width:600px) {
+    .searchbar {
+        width: 100%;
+    }
+
+    .searchbar input {
+        width: 100%;
+    }
+}

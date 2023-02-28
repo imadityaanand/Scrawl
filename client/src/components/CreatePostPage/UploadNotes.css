@@ -1,0 +1,58 @@
+.createpost {
+    margin: 30px 80px;
+}
+
+.createpost h6 {
+    margin: 0 0 5px 0;
+}
+
+.createpost .upload-button {
+    position: static;
+}
+
+.createpost input {
+    padding: 0 20px;
+    height: 45px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: transparent;
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+.createpost input:focus {
+    outline: none;
+}
+
+.createpost .file-input {
+    padding: 0;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: transparent;
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+.createpost .file-input::-webkit-file-upload-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 500px;
+    border-radius: 10px;
+    border: solid 2px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.createpost .file-input::before {
+    /* content: 'TAP TO UPLOAD'; */
+}

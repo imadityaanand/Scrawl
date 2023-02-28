@@ -1,0 +1,220 @@
+.navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+    position: fixed;
+    height: 100vh;
+    padding: 0px 30px 50px;
+    width: 250px;
+    background-color: white;
+    z-index: 2;
+}
+
+.navbar .logo {
+    margin: 60px 0;
+    align-self: left;
+}
+
+.navbar .logo:hover {
+    cursor: pointer;
+}
+
+.navbutton {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    margin: 5px 0;
+    border-radius: 10px;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.navbutton.active {
+    background-color: black;
+    color: white;
+}
+
+.navbutton.profile-pic.active img{
+    filter: none;
+}
+
+.navbutton.active img {
+    filter: invert(98%) sepia(0%) saturate(7472%) hue-rotate(57deg) brightness(106%) contrast(97%);
+}
+
+.navbutton.active:hover {
+    background-color: black;
+    color: white;
+}
+
+.navbutton img {
+    margin-right: 15px;
+    height: 16px;
+}
+
+.navbutton:hover {
+    cursor: pointer;
+    background-color: #F5F7FB;
+}
+
+.upload-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    min-width: 150px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    background-color: #005CFF;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    z-index: 2;
+}
+
+.upload-button:hover {
+    cursor: pointer;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    height: 50px;
+    padding: 0 2.5px;
+}
+
+.profile-button:hover {
+    cursor: pointer;
+    background-color: #F5F7FB;
+}
+
+.navbar .profile-pic {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background-color: #005CFF;
+    margin-right: 15px;
+    background-size: cover;
+}
+
+.profile-button p {
+    margin: 0;
+}
+
+.profile-button .name {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.profile-button .username {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.5;
+}
+
+.profile-button .label {
+    display: none;
+}
+
+
+
+
+/* Media queries */
+
+@media (max-width:600px) {
+    .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        /* align-items: center; */
+        height: auto;
+        padding: 15px 20px 15px;
+        width: 100vw;
+        background-color: white;
+
+        position: fixed;
+        bottom: 0;
+    }
+
+    .nav-button-parent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .navbutton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0px 15px;
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        background-color: transparent;
+    }
+
+    .navbutton img {
+        margin-right: 0px;
+        height: 16px;
+    }
+
+    .profile-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+        height: 45px;
+        width: 45px;
+        padding: 0;
+        margin: 0px 15px;
+    }
+
+    .navbar .profile-pic {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        margin-right: 0;
+    }
+
+    .profile-button-parent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-button-parent .label {
+        display: block;
+        font-size: 10px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .profile-button .name, .profile-button .username {
+        display: none;
+    }
+
+    .upload-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
+        background-color: #005CFF;
+        border-radius: 10px;
+        margin-bottom: 25px;
+
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+    }
+}
