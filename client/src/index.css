@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #F5F7FB;
+  -webkit-tap-highlight-color: transparent;
 }
 
 code {

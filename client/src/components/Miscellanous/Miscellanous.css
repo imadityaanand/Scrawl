@@ -1,0 +1,16 @@
+.backbutton:hover, .themebutton:hover, .pdfnavbutton:hover {
+    cursor: pointer;
+}
+
+.pdfnavbutton img.left {
+    transform: rotate(180deg);
+}
+
+.pdfnavbutton {
+    height: max-content;
+    margin: 4px 25px 0px;
+}
+
+.pdfnavbutton.disabled {
+    opacity: 0.3;
+}

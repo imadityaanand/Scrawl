@@ -1,7 +1,8 @@
 import React from 'react';
+import './PdfCard.css'
 import { useNavigate } from 'react-router-dom';
 
-function PdfCard({ pdf }) {
+function PdfCard({ pdf, image }) {
     const navigate = useNavigate();
     const viewPdf = () => {
         // open the pdf in a new tab
@@ -10,13 +11,18 @@ function PdfCard({ pdf }) {
     }
 
     return (
-    <div className="pdf-card" onClick={viewPdf}>
-        <h3>{pdf.title}</h3>
-        <p>{pdf.description}</p>
-        <div className="tags">
-        {pdf.tags.map(tag => <span key={tag}>{tag}</span>)}
+        <div className="pdf-card" onClick={viewPdf}>
+            <div className='notes-thumb' style={{backgroundImage: 'url(' + image + ')'}}></div>
+            <p className='title'>{pdf.title}</p>
+            {/* <p>{pdf.description}</p> */}
+            {/* <div className="tags">
+            {pdf.tags.map(tag => <span key={tag}>{tag}</span>)}
+            </div> */}
+            <div className='flex info'>
+                {/* <p className='username'>@{props.username}</p>
+                <p className='pages'>{props.pages} pages</p> */}
+            </div>
         </div>
-    </div>
     );
 };
 
