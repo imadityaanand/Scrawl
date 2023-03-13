@@ -20,32 +20,7 @@ function HomePage() {
         </div>
 
         <h6>RECENTLY UPLOADED</h6>
-        <div className='flex cards-container'>
-          <NotesCardHome
-            image = '../../../assets/notes1.png'
-            title = 'Alternating current | Class 12 Physics | Sample Notes'
-            username = 'shutkone'
-            pages = '3'
-          />
-          <NotesCardHome
-            image = '../../../assets/notes1.png'
-            title = 'Alternating current | Class 12 Physics | Sample Notes'
-            username = 'shutkone'
-            pages = '3'
-          />
-          <NotesCardHome
-            image = '../../../assets/notes1.png'
-            title = 'Alternating current | Class 12 Physics | Sample Notes'
-            username = 'shutkone'
-            pages = '3'
-          />
-          <NotesCardHome
-            image = '../../../assets/notes1.png'
-            title = 'Alternating current | Class 12 Physics | Sample Notes'
-            username = 'shutkone'
-            pages = '3'
-          />
-        </div>
+        <PdfList />
 
         <h6>RECENTLY VIEWED</h6>
         <div className='flex cards-container'>
@@ -102,9 +77,6 @@ function HomePage() {
             pages = '3'
           />
         </div>
-
-        <h6>FROM DATABASE</h6>
-        <PdfList />
 
         {/* <div className='sample-bg'></div>
         <img className='sample' src='../../../assets/notes1.png' alt='notes-sample' /> */}

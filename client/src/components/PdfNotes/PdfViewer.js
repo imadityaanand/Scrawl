@@ -3,6 +3,9 @@ import './PdfViewer.css'
 import axios from 'axios';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { Spinner } from 'react-bootstrap';
+import BackButton from '../Miscellanous/BackButton';
+import ThemeButton from '../Miscellanous/ThemeButton';
+import PdfNavButton from '../Miscellanous/PdfNavButton';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -58,6 +61,17 @@ function PdfViewer({ id }) {
   return (
     <div>
       <div className={`blend-bg ${darkMode ? 'active' : null}`} ></div>
+      <div className='pdf-topbar flex'>
+        {darkMode ? <BackButton color='white' /> : <BackButton />}
+          {/* <button
+          className='dark-button'
+          onClick={DarkMode}
+          >
+            Dark Mode
+          </button> */}
+          {/* {darkMode ? <img src='../../../assets/sun-icon.svg' alt='light' onClick={DarkMode} /> : <img src='../../../assets/moon-icon.svg' alt='dark' onClick={DarkMode} />} */}
+          {darkMode ? <ThemeButton click={DarkMode} icon='sun' /> : <ThemeButton click={DarkMode} icon='moon' />}
+      </div>
       <Document file={pdfData} onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={currentPage} />
       </Document>
@@ -72,29 +86,26 @@ function PdfViewer({ id }) {
         <div>Loading pdf...</div>
       )} */}
       <div className='pdf-navbar'>
-        <button
+        {darkMode ? <PdfNavButton type='left' click={handlePreviousPage} disabled={currentPage === 1 ? 'disabled' : null} /> : <PdfNavButton type='left' theme='light' click={handlePreviousPage} disabled={currentPage === 1 ? 'disabled' : null} />}
+        {/* <button
           disabled={currentPage === 1}
           onClick={handlePreviousPage}
         >
           Previous Page
-        </button>
-        <span>
+        </button> */}
+        <span className={darkMode ? 'white' : null}>
           Page {currentPage} of {numPages}
         </span>
-        <button
+        {/* <button
           disabled={currentPage === numPages}
           onClick={handleNextPage}
         >
           Next Page
-        </button>
+        </button> */}
+        {darkMode ? <PdfNavButton type='right' click={handleNextPage} disabled={currentPage === numPages ? 'disabled' : null} /> : <PdfNavButton type='right' theme='light' click={handleNextPage} disabled={currentPage === numPages ? 'disabled' : null} />}
       </div>
 
-      <button
-        className='dark-button'
-        onClick={DarkMode}
-      >
-        Dark Mode
-      </button>
+      
     </div>
   );
 }

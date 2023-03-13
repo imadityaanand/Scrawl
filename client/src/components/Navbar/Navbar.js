@@ -3,14 +3,16 @@ import './Navbar.css';
 import Navbutton from './Navbutton';
 import ProfileButton from './ProfileButton';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
-    const [isActive, setActive] = useState("home");
+    const [isActive, setActive] = useState(window.location.pathname.slice(1, window.location.pathname.length));
     const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
+    const navigate = useNavigate();
 
     function HandleClick(set) {
         setActive(set);
+        navigate('/' + set);
     }
 
     if(!isMobile){

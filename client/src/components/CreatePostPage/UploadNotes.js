@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './UploadNotes.css'
 import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
+import BackButton from '../Miscellanous/BackButton';
 
 function UploadNotes() {
     const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
@@ -42,7 +43,7 @@ function UploadNotes() {
     return (
         <div className='createpost'>
             <div className='flex'>
-                {isMobile ? <img src='../../../assets/arrow-icon.svg' alt='back' /> : null}
+                {isMobile ? <BackButton /> : null}
                 <h2>Create Post</h2>
             </div>
             
