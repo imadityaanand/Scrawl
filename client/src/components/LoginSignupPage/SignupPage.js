@@ -1,8 +1,18 @@
 import React from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
 
 function SignupPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function HandleSubmit(e) {
+    e.preventDefault();
+    console.log(email, password);
+  }
+
   return (
     <div className='login'>
       <Link to='/' style={{ color: 'black' }}>
@@ -13,13 +23,14 @@ function SignupPage() {
 
       <div className='login-container'>
         <h1>Sign Up</h1>
-        <form action="http://localhost:4000/signup" method='POST'>
+        {/* <form action="http://localhost:4000/signup" method='POST'> */}
+        <form onSubmit={HandleSubmit}>
             <p>Name*</p>
-            <input placeholder='Name' name='name' />
+            <input placeholder='Name' name='name' value={name} onChange={(e) => {setName(e.target.value)}} />
             <p>Email*</p>
-            <input placeholder='mail@website.com' name='email' />
+            <input placeholder='mail@website.com' name='email' value={email} onChange={(e) => {setEmail(e.target.value)}} />
             <p>Password*</p>
-            <input placeholder='Password' type='password' name='password' />
+            <input placeholder='Password' type='password' name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} />
 
             <button className='loginpage-btn' type='submit'>Sign Up</button>
             <div className='or-div'>
