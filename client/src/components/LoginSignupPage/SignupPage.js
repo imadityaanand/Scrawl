@@ -1,16 +1,19 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSignup } from '../../hooks/useSignup';
 import './LoginPage.css';
 
 function SignupPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {signup, error, isLoading} = useSignup();
 
   async function HandleSubmit(e) {
     e.preventDefault();
-    console.log(email, password);
+    
+    await signup(name, email, password);
   }
 
   return (
@@ -32,7 +35,8 @@ function SignupPage() {
             <p>Password*</p>
             <input placeholder='Password' type='password' name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} />
 
-            <button className='loginpage-btn' type='submit'>Sign Up</button>
+            <button className='loginpage-btn' type='submit' disabled={isLoading}>Sign Up</button>
+            {error && <div className='error'>{error}</div>}
             <div className='or-div'>
                 <div className='line'></div>
                 or Sign Up with Google

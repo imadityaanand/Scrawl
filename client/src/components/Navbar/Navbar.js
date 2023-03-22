@@ -1,18 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Navbar.css';
 import Navbutton from './Navbutton';
 import ProfileButton from './ProfileButton';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
+import LogoutButton from '../Miscellanous/LogoutButton';
+import { useLogout } from '../../hooks/useLogout';
 
 function Navbar() {
     const [isActive, setActive] = useState(window.location.pathname.slice(1, window.location.pathname.length));
     const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
     const navigate = useNavigate();
 
+    const { logout } = useLogout();
+
+    const name = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).name : null;
+
     function HandleClick(set) {
         setActive(set);
         navigate('/' + set);
+        window.scrollTo(0, 0);
+    }
+
+
+    function LogOut() {
+        logout();
     }
 
     if(!isMobile){
@@ -27,10 +39,11 @@ function Navbar() {
                     <Navbutton icon='../../../assets/bell-icon.svg' name='Notifications' active={isActive === 'notifications' ? 'active' : null} click={() => {HandleClick('notifications')}} />
                     <Navbutton icon='../../../assets/saved-icon.svg' name='Saved Notes' active={isActive === 'saved' ? 'active' : null} click={() => {HandleClick('saved')}} />
                     <Navbutton icon='../../../assets/heart-icon.svg' name='Liked Notes' active={isActive === 'liked' ? 'active' : null} click={() => {HandleClick('liked')}} />
+                    <LogoutButton click={LogOut} />
                 </div>
                 <div>
                     <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
-                    <ProfileButton image='../../../assets/aditya.png' name='Aditya Anand' username='imadityaanand' />
+                    <ProfileButton image='../../../assets/aditya.png' name={name} username='imadityaanand' />
                 </div>
             </div>
         )    

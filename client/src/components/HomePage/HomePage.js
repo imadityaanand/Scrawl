@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './HomePage.css'
 import Navbar from '../Navbar/Navbar';
 import SearchBar from '../SearchBar/SearchBar';
 import NotesCardHome from './NotesCardHome';
 import PdfList from '../PdfNotes/PdfList';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!localStorage.getItem('user')) {
+      navigate('/login');
+    }
+  }, []);
+
   return (
     <div className='homepage'>
       <Navbar />

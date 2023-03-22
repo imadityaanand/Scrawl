@@ -1,4 +1,4 @@
-.backbutton:hover, .themebutton:hover, .pdfnavbutton:hover {
+.backbutton:hover, .themebutton:hover, .pdfnavbutton:hover, .logout-btn:hover {
     cursor: pointer;
 }
 

@@ -10,8 +10,22 @@ import RequestsPage from './components/RequestsPage/RequestsPage';
 import NotificationsPage from './components/NotificationsPage/NotificationsPage';
 import SavedPage from './components/SavedPage/SavedPage';
 import LikedPage from './components/LikedPage/LikedPage';
+import { useEffect } from 'react';
 
 function App() {
+
+  function handleCallbackResponse(response) {
+    console.log("Encoded JWT ID token: ", response.credential);
+  }
+
+  // useEffect(() => {
+  //   // Global Google
+  //   google.accounts.id.initialize({
+  //     client_id: process.env.REACT_APP_CLIENT_ID,
+  //     callback: handleCallbackResponse
+  //   })
+  // })
+
   return (
     <Routes>
       <Route path='/' element={<LandingPage />} />

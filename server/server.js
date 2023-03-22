@@ -1,5 +1,10 @@
 require('dotenv').config();
+
 const express = require('express');
+const cors = require('cors');
+const app = express();
+app.use(cors());
+
 const mongoose = require('mongoose');
 const session = require("express-session");
 const passport = require("passport");
@@ -11,18 +16,23 @@ const saltRounds = 12;
 
 const multer = require('multer');
 const fs = require('fs');
-const cors = require('cors');
+
 const zlib = require('zlib');
 // const mongodb = require('mongodb');
 // const MongoClient = mongodb.MongoClient;
 
+const jwt = require('jsonwebtoken');
+
+
+const User = require('./models/userModel');
+
 
 const userRoutes = require('./routes/user');
 
-const app = express();
+
 
 // [12] middlewares 
-app.use(cors());
+
 app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
@@ -85,126 +95,98 @@ mongoose.connect(process.env.MONGO_URI)
 // const User = new mongoose.model("User", userSchema);
 
 
-// // Sign Up with Google
-// passport.use(User.createStrategy());
-// passport.serializeUser(function(user, done) {
-//   done(null, user.id);
-// });
-// passport.deserializeUser(function(id, done) {
-//   User.findById(id, function(err, user) {
-//     done(err, user);
-//   });
-// });
+// Sign Up with Google
+passport.use(User.createStrategy());
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
-// passport.use(new GoogleStrategy({
-//     clientID: process.env.CLIENT_ID,
-//     clientSecret: process.env.CLIENT_SECRET,
-//     callbackURL: "http://localhost:4000/auth/google/callback",
-//     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     console.log(profile);
-//     console.log(profile);
-//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   }
-// ));
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:4000/auth/google/callback",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+  async function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    console.log("Name: ", profile.displayName);
+    console.log("Email: ", profile._json.email);
+    console.log("Picture: ", profile._json.picture);
+    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    //   return cb(err, user);
+    // });
 
+    const name = profile.displayName;
+    const email = profile._json.email;
+    const picture = profile._json.picture;
+    const googleId = profile.id;
 
-// app.get("/auth/google",
-//   passport.authenticate("google", { scope: ["profile", "email"] })
-// );
+    // User.googleSignin(name, email, picture, googleId);
 
-// app.get("/auth/google/callback",
-//   passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
-//   function(req, res) {
-//     // Successful authentication, redirect secrets.
-//     res.redirect("http://localhost:3000/home");
-// });
+    try {
+      const user = await User.findOne({ email });
 
-// app.get("/logout", function(req, res){
-//     res.redirect("http://localhost:3000/");
-// });
+      if (user) {
+        done(null, user);
+      } else {
+        const newUser = await User.create({
+          email,
+          password: "",
+          name,
+          googleId,
+          picture,
+          isGoogleUser: true
+        })
 
-// app.get('/home', function(req, res){
-//   if(req.isAuthenticated()) {
-//     res.redirect('http://localhost:3000/home');
-//   } else {
-//     res.redirect('http://localhost:3000/login');
-//   }
-// });
+        const token = jwt.sign({ userId: newUser._id }, process.env.SECRET, {
+          expiresIn: '3d',
+        });
 
-// app.get('/signup', function(req, res) {
-//   res.redirect('http://localhost:3000/signup');
-// })
-
-// // Regular Sign up and Log in routes
-// app.post("/signup", function(req, res) {
-//   bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-//     const newUser = new User({
-//       username: req.body.email,
-//       name: req.body.name,
-//       password: hash
-//     });
-//     console.log(req.body);
-//     newUser.save(function(err) {
-//       if(err) {
-//         console.log(err);
-//       } else {
-//         res.redirect("http://localhost:3000/home");
-//       }
-//     });
-//   });
-//   // User.register({username: req.body.email, password: req.body.password}, req.body.password, function(err, user) {
-//   //   if(err) {
-//   //     console.log(err);
-//   //     res.redirect('http://localhost:3000/signup');
-//   //   } else {
-//   //     console.log(req.body);
-//   //     // passport.authenticate('local')(req, res, function() {
-//   //     //   res.redirect('/home');
-//   //     // });
-//   //     const authenticate = User.authenticate();
-//   //     authenticate('username', 'password', function(err, result) {
-//   //       if (err) {
-//   //         console.log(err);
-//   //       } else {
-//   //         res.redirect('/home');
-//   //       }
-//   //     });
-//   //   }
-//   // });
-// });
-
-// app.post("/login", function(req, res) {
-//   const username = req.body.email;
-//   const password = req.body.password;
-//   console.log(req.body);
-//   const name = req.body.name;
-//   User.findOne({username: username}, function(err, foundUser) {
-//     if(err) {
-//       console.log(err);
-//     } else {
-//       if(foundUser) {
-//         bcrypt.compare(password, foundUser.password, function(err, result) {
-//           if(result) {
-//             res.redirect("http://localhost:3000/home");
-//           } else {
-//             res.send("Incorrect password");
-//           }
-//         });
-        
-//       } else {
-//         res.send("No user with this email");
-//       }
-//     }
-//   });
-// });
+        done(null, newUser, { token });
+      }
+    } catch(err) {
+        console.error(err);
+        done(err, null);
+    } 
+  }
+));
 
 
+app.get("/auth/google",
+  (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    req.header(
+      'Access-Control-Allow-Origin', 'http://localhost:3000'
+    )},
+    
+  passport.authenticate("google", { scope: ["profile", "email"] })
 
-///////////
+);
+
+app.get("/auth/google/callback",
+  passport.authenticate("google", {
+    // failureRedirect: '/fail'
+    session: false
+  }),
+  (req, res) => {
+    console.log(req);
+    console.log("USERRRRRRR: ", req.user);
+    const user = req.user;
+    const { token } = req.authInfo;
+    // res.header("Access-Control-Allow-Origin", "*");
+    // req.header(
+    //   'Access-Control-Allow-Origin', 'http://localhost:3000'
+    // )
+    res.json({ user, token });
+  }
+);
+
+
 
 
 
