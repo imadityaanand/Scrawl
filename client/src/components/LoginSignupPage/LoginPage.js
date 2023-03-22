@@ -1,8 +1,16 @@
 import React from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
 
 function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function HandleSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
     <div className='login'>
       <Link to='/' style={{ color: 'black' }}>
@@ -13,11 +21,12 @@ function LoginPage() {
 
       <div className='login-container'>
         <h1>Log In</h1>
-        <form action="http://localhost:4000/login" method='POST'>
+        {/* <form action="http://localhost:4000/login" method='POST'> */}
+        <form onSubmit={HandleSubmit}>
             <p>Email*</p>
-            <input placeholder='mail@website.com' name='email' />
+            <input placeholder='mail@website.com' name='email' value={email} onChange={(e) => {setEmail(e.target.value)}} />
             <p>Password*</p>
-            <input placeholder='Password' type='password' name='password' />
+            <input placeholder='Password' type='password' name='password' value={password} onChange={(e) => {setPassword(e.target.password)}} />
 
             <button className='loginpage-btn' type='submit'>Log In</button>
             <div className='or-div'>
