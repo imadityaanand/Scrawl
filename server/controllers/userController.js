@@ -41,8 +41,15 @@ const signupUser = async (req, res) => {
 
 
 // Google Signin User
-// const googleSigninUser = async (req, res) => {
-//     const {}
-// }
+const googleSigninUser = async (req, res) => {
+    const { name, email, picture, googleId, token } = req.body;
 
-module.exports = {loginUser ,signupUser};
+    try {
+        const user = await User.googleSignin(name, email, picture, googleId);
+        res.status(200).json({name, email, picture, googleId, token});
+    } catch(error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+module.exports = {loginUser ,signupUser, googleSigninUser};

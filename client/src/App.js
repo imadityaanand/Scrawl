@@ -14,18 +14,6 @@ import { useEffect } from 'react';
 
 function App() {
 
-  function handleCallbackResponse(response) {
-    console.log("Encoded JWT ID token: ", response.credential);
-  }
-
-  // useEffect(() => {
-  //   // Global Google
-  //   google.accounts.id.initialize({
-  //     client_id: process.env.REACT_APP_CLIENT_ID,
-  //     callback: handleCallbackResponse
-  //   })
-  // })
-
   return (
     <Routes>
       <Route path='/' element={<LandingPage />} />

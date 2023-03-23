@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSignup } from '../../hooks/useSignup';
+import jwt_decode from 'jwt-decode';
 import './LoginPage.css';
 
 function SignupPage() {
@@ -9,12 +10,42 @@ function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {signup, error, isLoading} = useSignup();
+  const [googleUser, setGoogleUser] = useState({});
+  const navigate = useNavigate();
 
   async function HandleSubmit(e) {
     e.preventDefault();
     
     await signup(name, email, password);
   }
+
+  function handleCallbackResponse(response) {
+    console.log("Encoded JWT ID token: ", response.credential);
+    const userObject = jwt_decode(response.credential);
+    console.log(userObject);
+
+    if(userObject) {
+      setGoogleUser(userObject);
+      localStorage.setItem('user', JSON.stringify(userObject));
+      navigate('/home');
+    }
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      callback: handleCallbackResponse
+    })
+
+    google.accounts.id.renderButton(
+      document.getElementById('google-signin'),
+      {
+        theme: 'none',
+        size: 'medium'
+      }
+    );
+  })
 
   return (
     <div className='login'>
@@ -39,12 +70,12 @@ function SignupPage() {
             {error && <div className='error'>{error}</div>}
             <div className='or-div'>
                 <div className='line'></div>
-                or Sign Up with Google
+                or Sign In with Google
                 <div className='line'></div>
             </div>
         </form>
         <form action="http://localhost:4000/auth/google">
-            <button className='loginpage-btn google' type='submit'>
+            <button className='loginpage-btn google' id='google-signin' type='submit'>
                 <img src='../../../assets/googlelogo.svg' alt='google'/>
                 Sign Up with Google
             </button>

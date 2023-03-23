@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './Navbar.css';
 import Navbutton from './Navbutton';
 import ProfileButton from './ProfileButton';
@@ -15,6 +15,7 @@ function Navbar() {
     const { logout } = useLogout();
 
     const name = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).name : null;
+    const picture = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).picture : null;
 
     function HandleClick(set) {
         setActive(set);
@@ -43,7 +44,7 @@ function Navbar() {
                 </div>
                 <div>
                     <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
-                    <ProfileButton image='../../../assets/aditya.png' name={name} username='imadityaanand' />
+                    <ProfileButton image={picture ? picture : '../../../assets/aditya.png'} name={name} username='imadityaanand' />
                 </div>
             </div>
         )    

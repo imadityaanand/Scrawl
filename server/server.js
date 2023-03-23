@@ -3,23 +3,18 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000']
+}));
 
 const mongoose = require('mongoose');
 const session = require("express-session");
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const findOrCreate = require("mongoose-findorcreate");
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
 
 const multer = require('multer');
 const fs = require('fs');
 
 const zlib = require('zlib');
-// const mongodb = require('mongodb');
-// const MongoClient = mongodb.MongoClient;
 
 const jwt = require('jsonwebtoken');
 
@@ -48,8 +43,8 @@ app.use(session({
     saveUninitialized: false
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 // Routes
@@ -57,9 +52,6 @@ app.use('/api/user', userRoutes);
 
 
 
-
-
-//////////////
 
 
 // // connect to db
@@ -79,112 +71,6 @@ mongoose.connect(process.env.MONGO_URI)
     });
 // mongoose.set('useCreateIndex', true);
 
-// // creating user schema     [17] Schemas and Models
-// const userSchema = new mongoose.Schema({
-//     username: String,
-//     name: String,
-//     googleId: String,
-//     password: String,
-//     picture: String
-// });
-
-// userSchema.plugin(passportLocalMongoose);
-// userSchema.plugin(findOrCreate);
-
-// // creating a user
-// const User = new mongoose.model("User", userSchema);
-
-
-// Sign Up with Google
-passport.use(User.createStrategy());
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
-passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:4000/auth/google/callback",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-  },
-  async function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
-    console.log("Name: ", profile.displayName);
-    console.log("Email: ", profile._json.email);
-    console.log("Picture: ", profile._json.picture);
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-
-    const name = profile.displayName;
-    const email = profile._json.email;
-    const picture = profile._json.picture;
-    const googleId = profile.id;
-
-    // User.googleSignin(name, email, picture, googleId);
-
-    try {
-      const user = await User.findOne({ email });
-
-      if (user) {
-        done(null, user);
-      } else {
-        const newUser = await User.create({
-          email,
-          password: "",
-          name,
-          googleId,
-          picture,
-          isGoogleUser: true
-        })
-
-        const token = jwt.sign({ userId: newUser._id }, process.env.SECRET, {
-          expiresIn: '3d',
-        });
-
-        done(null, newUser, { token });
-      }
-    } catch(err) {
-        console.error(err);
-        done(err, null);
-    } 
-  }
-));
-
-
-app.get("/auth/google",
-  (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    req.header(
-      'Access-Control-Allow-Origin', 'http://localhost:3000'
-    )},
-    
-  passport.authenticate("google", { scope: ["profile", "email"] })
-
-);
-
-app.get("/auth/google/callback",
-  passport.authenticate("google", {
-    // failureRedirect: '/fail'
-    session: false
-  }),
-  (req, res) => {
-    console.log(req);
-    console.log("USERRRRRRR: ", req.user);
-    const user = req.user;
-    const { token } = req.authInfo;
-    // res.header("Access-Control-Allow-Origin", "*");
-    // req.header(
-    //   'Access-Control-Allow-Origin', 'http://localhost:3000'
-    // )
-    res.json({ user, token });
-  }
-);
 
 
 
