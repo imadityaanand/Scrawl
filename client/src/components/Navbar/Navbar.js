@@ -4,15 +4,11 @@ import Navbutton from './Navbutton';
 import ProfileButton from './ProfileButton';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
-import LogoutButton from '../Miscellanous/LogoutButton';
-import { useLogout } from '../../hooks/useLogout';
 
 function Navbar() {
     const [isActive, setActive] = useState(window.location.pathname.slice(1, window.location.pathname.length));
     const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
     const navigate = useNavigate();
-
-    const { logout } = useLogout();
 
     const name = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).name : null;
     const picture = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).picture : null;
@@ -21,11 +17,6 @@ function Navbar() {
         setActive(set);
         navigate('/' + set);
         window.scrollTo(0, 0);
-    }
-
-
-    function LogOut() {
-        logout();
     }
 
     if(!isMobile){
@@ -40,11 +31,16 @@ function Navbar() {
                     <Navbutton icon='../../../assets/bell-icon.svg' name='Notifications' active={isActive === 'notifications' ? 'active' : null} click={() => {HandleClick('notifications')}} />
                     <Navbutton icon='../../../assets/saved-icon.svg' name='Saved Notes' active={isActive === 'saved' ? 'active' : null} click={() => {HandleClick('saved')}} />
                     <Navbutton icon='../../../assets/heart-icon.svg' name='Liked Notes' active={isActive === 'liked' ? 'active' : null} click={() => {HandleClick('liked')}} />
-                    <LogoutButton click={LogOut} />
                 </div>
                 <div>
                     <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
-                    <ProfileButton image={picture ? picture : '../../../assets/aditya.png'} name={name} username='imadityaanand' />
+                    <ProfileButton
+                        image={picture ? picture : '../../../assets/aditya.png'}
+                        name={name}
+                        username='imadityaanand'
+                        click={() => {HandleClick('profile')}}
+                        active={isActive === 'profile' ? 'active' : null}
+                    />
                 </div>
             </div>
         )    
@@ -57,7 +53,7 @@ function Navbar() {
                     <Navbutton icon='../../../assets/requests-icon.svg' name='Requests' active={isActive === 'requests' ? 'active' : null} click={() => {HandleClick('requests')}} />
                     <Navbutton icon='../../../assets/bell-icon.svg' name='Notifications' active={isActive === 'notifications' ? 'active' : null} click={() => {HandleClick('notifications')}} />
                     {/* <ProfileButton image='../../../assets/aditya.png' name='Aditya Anand' username='imadityaanand' /> */}
-                    <Navbutton icon='../../../assets/aditya.png' name='Profile' active={isActive === 'profile' ? 'active' : null} click={() => {HandleClick('profile')}} class='profile-pic' />
+                    <Navbutton icon={picture ? picture : '../../../assets/aditya.png'} name='Profile' active={isActive === 'profile' ? 'active' : null} click={() => {HandleClick('profile')}} class='profile-pic' />
                 </div>
             </> 
         )

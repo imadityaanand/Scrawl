@@ -11,6 +11,7 @@ import NotificationsPage from './components/NotificationsPage/NotificationsPage'
 import SavedPage from './components/SavedPage/SavedPage';
 import LikedPage from './components/LikedPage/LikedPage';
 import { useEffect } from 'react';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       <Route path='/notifications' element={<NotificationsPage />} />
       <Route path='/saved' element={<SavedPage />} />
       <Route path='/liked' element={<LikedPage />} />
+      <Route path='/profile' element={<ProfilePage />} />
       <Route path='/pdf/:id' element={<ViewPage />} />
     </Routes>
   );

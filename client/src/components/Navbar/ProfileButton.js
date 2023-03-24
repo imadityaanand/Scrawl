@@ -7,7 +7,7 @@ function ProfileButton(props) {
 
     if(!isMobile) {
         return (
-            <div className='profile-button'>
+            <div className={`profile-button ${props.active}`} onClick={props.click}>
                 <div className='profile-pic' style={{backgroundImage: 'url(' + props.image + ')'}}></div>
                 <div className='profile-info'>
                     <p className='name'>{props.name}</p>
