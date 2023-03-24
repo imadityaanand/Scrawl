@@ -1,4 +1,4 @@
-.backbutton:hover, .themebutton:hover, .pdfnavbutton:hover {
+.backbutton:hover, .themebutton:hover, .pdfnavbutton:hover, .logout-btn:hover {
     cursor: pointer;
 }
 
@@ -13,4 +13,31 @@
 
 .pdfnavbutton.disabled {
     opacity: 0.3;
+}
+
+.profilepage-btn {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    margin: 5px 0;
+    border-radius: 10px;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+}
+
+.profilepage-btn img {
+    margin-right: 15px;
+    height: 16px;
+}
+
+.profilepage-btn.red {
+    background-color: rgba(255, 40, 46, 0.02);
+    color: #FF282E;
+}
+
+.profilepage-btn.red:hover {
+    background-color: rgba(255, 40, 46, 0.05);
 }

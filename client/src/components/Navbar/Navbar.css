@@ -87,10 +87,10 @@
     height: 50px;
     padding: 0 2.5px;
     user-select: none;
+    cursor: pointer;
 }
 
-.profile-button:hover {
-    cursor: pointer;
+.profile-button.active, .profile-button:hover {
     background-color: #F5F7FB;
 }
 

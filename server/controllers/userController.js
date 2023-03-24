@@ -15,7 +15,8 @@ const loginUser = async (req, res) => {
         // Create a token
         const token = createToken(user._id);
 
-        res.status(200).json({email, token});
+        const {name} = await User.findOne({email}).select('name');
+        res.status(200).json({name, email, token});
     } catch(error) {
         res.status(400).json({error: error.message});
     }
@@ -31,11 +32,24 @@ const signupUser = async (req, res) => {
         // Create a token
         const token = createToken(user._id);
 
-        res.status(200).json({email, token});
+
+        res.status(200).json({name, email, token});
     } catch(error) {
         res.status(400).json({error: error.message});
     }
 }
 
 
-module.exports = {loginUser ,signupUser};
+// Google Signin User
+const googleSigninUser = async (req, res) => {
+    const { name, email, picture, googleId, token } = req.body;
+
+    try {
+        const user = await User.googleSignin(name, email, picture, googleId);
+        res.status(200).json({name, email, picture, googleId, token});
+    } catch(error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+module.exports = {loginUser ,signupUser, googleSigninUser};

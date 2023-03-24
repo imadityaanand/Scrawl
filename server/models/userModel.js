@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -9,12 +13,20 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     name: String,
-    googleId: String
+    username: String,
+    googleId: String,
+    picture: String,
+    isGoogleUser: {
+        type: Boolean,
+        default: false
+    }
 });
+
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
 
 // Static Signup method
 userSchema.statics.signup = async function(email, password, name) {
@@ -58,6 +70,17 @@ userSchema.statics.login = async function(email, password) {
 
     if(!match) {
         throw Error('Incorrect password');
+    }
+    return user;
+}
+
+
+// Google Signin Method
+userSchema.statics.googleSignin = async function(name, email, picture, googleId) {
+    const user = await this.findOne({ email });
+    if(!user) {
+        const user = await this.create({ email, password: "", name, googleId, picture, isGoogleUser: true });
+        return user;
     }
     return user;
 }

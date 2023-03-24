@@ -1,0 +1,60 @@
+.profileinfocard {
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.profileinfocard .user, .profileinfocard .user .user-info {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profileinfocard .user-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-right: 20px;
+}
+
+.profileinfocard p {
+    margin: 0;
+}
+
+.profileinfocard .name {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.profileinfocard .username {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.5;
+}
+
+.profileinfocard .edit-btn {
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.profileinfocard .edit-btn img {
+    height: 15px;
+}
+
+.profileinfocard .edit-btn:hover {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}

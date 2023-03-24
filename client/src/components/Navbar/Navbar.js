@@ -10,9 +10,13 @@ function Navbar() {
     const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
     const navigate = useNavigate();
 
+    const name = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).name : null;
+    const picture = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).picture : null;
+
     function HandleClick(set) {
         setActive(set);
         navigate('/' + set);
+        window.scrollTo(0, 0);
     }
 
     if(!isMobile){
@@ -30,7 +34,13 @@ function Navbar() {
                 </div>
                 <div>
                     <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
-                    <ProfileButton image='../../../assets/aditya.png' name='Aditya Anand' username='imadityaanand' />
+                    <ProfileButton
+                        image={picture ? picture : '../../../assets/aditya.png'}
+                        name={name}
+                        username='imadityaanand'
+                        click={() => {HandleClick('profile')}}
+                        active={isActive === 'profile' ? 'active' : null}
+                    />
                 </div>
             </div>
         )    
@@ -43,7 +53,7 @@ function Navbar() {
                     <Navbutton icon='../../../assets/requests-icon.svg' name='Requests' active={isActive === 'requests' ? 'active' : null} click={() => {HandleClick('requests')}} />
                     <Navbutton icon='../../../assets/bell-icon.svg' name='Notifications' active={isActive === 'notifications' ? 'active' : null} click={() => {HandleClick('notifications')}} />
                     {/* <ProfileButton image='../../../assets/aditya.png' name='Aditya Anand' username='imadityaanand' /> */}
-                    <Navbutton icon='../../../assets/aditya.png' name='Profile' active={isActive === 'profile' ? 'active' : null} click={() => {HandleClick('profile')}} class='profile-pic' />
+                    <Navbutton icon={picture ? picture : '../../../assets/aditya.png'} name='Profile' active={isActive === 'profile' ? 'active' : null} click={() => {HandleClick('profile')}} class='profile-pic' />
                 </div>
             </> 
         )
