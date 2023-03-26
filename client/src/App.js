@@ -10,7 +10,6 @@ import RequestsPage from './components/RequestsPage/RequestsPage';
 import NotificationsPage from './components/NotificationsPage/NotificationsPage';
 import SavedPage from './components/SavedPage/SavedPage';
 import LikedPage from './components/LikedPage/LikedPage';
-import { useEffect } from 'react';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
 function App() {

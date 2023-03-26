@@ -59,7 +59,6 @@ function LoginPage() {
 
     if(userObject) {
       setGoogleUser(userObject);
-      localStorage.setItem('user', JSON.stringify(userObject));
 
       const googleId = userObject.sub;
       const { name, email, picture } = userObject;
@@ -73,6 +72,9 @@ function LoginPage() {
       });
 
       const json = await res.json();
+
+
+      localStorage.setItem('user', JSON.stringify(json));
 
       if(!res) {
         console.log("User data not sent to MongoDB");

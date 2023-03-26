@@ -2,7 +2,7 @@ import React from 'react';
 import './PdfCard.css'
 import { useNavigate } from 'react-router-dom';
 
-function PdfCard({ pdf, image }) {
+function PdfCard({ pdf, image }, props) {
     const navigate = useNavigate();
     const viewPdf = () => {
         // open the pdf in a new tab
@@ -19,8 +19,8 @@ function PdfCard({ pdf, image }) {
             {pdf.tags.map(tag => <span key={tag}>{tag}</span>)}
             </div> */}
             <div className='flex info'>
-                {/* <p className='username'>@{props.username}</p>
-                <p className='pages'>{props.pages} pages</p> */}
+                <p className='username'>@{props.username}</p>
+                <p className='pages'>{pdf.numPages} pages</p>
             </div>
         </div>
     );

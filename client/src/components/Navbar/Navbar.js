@@ -11,6 +11,7 @@ function Navbar() {
     const navigate = useNavigate();
 
     const name = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).name : null;
+    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : null;
     const picture = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).picture : null;
 
     function HandleClick(set) {
@@ -39,9 +40,9 @@ function Navbar() {
                         : <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
                     }
                     <ProfileButton
-                        image={picture ? picture : '../../../assets/aditya.png'}
+                        image={picture ? picture : '../../../assets/defaultuserpic.svg'}
                         name={name}
-                        username='imadityaanand'
+                        username={username}
                         click={() => {HandleClick('profile')}}
                         active={isActive === 'profile' ? 'active' : null}
                     />
@@ -61,7 +62,7 @@ function Navbar() {
                     <Navbutton icon='../../../assets/requests-icon.svg' name='Requests' active={isActive === 'requests' ? 'active' : null} click={() => {HandleClick('requests')}} />
                     <Navbutton icon='../../../assets/bell-icon.svg' name='Notifications' active={isActive === 'notifications' ? 'active' : null} click={() => {HandleClick('notifications')}} />
                     {/* <ProfileButton image='../../../assets/aditya.png' name='Aditya Anand' username='imadityaanand' /> */}
-                    <Navbutton icon={picture ? picture : '../../../assets/aditya.png'} name='Profile' active={isActive === 'profile' ? 'active' : null} click={() => {HandleClick('profile')}} class='profile-pic' />
+                    <Navbutton icon={picture ? picture : '../../../assets/defaultuserpic.svg'} name='Profile' active={isActive === 'profile' ? 'active' : null} click={() => {HandleClick('profile')}} class='profile-pic' />
                 </div>
             </> 
         )
