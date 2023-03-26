@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLogout } from '../../hooks/useLogout';
 import ProfilePageButton from '../Miscellanous/ProfilePageButton';
+import AchievementsCard from './AchievementsCard';
 import './ProfilePage.css'
 
 function ProfileInfoCard(props) {
@@ -25,8 +26,17 @@ function ProfileInfoCard(props) {
                     <img src='../../../assets/pen-icon.svg' alt='edit' />
                 </div>
             </div>
+            <AchievementsCard
+              coins={20}
+              likes={120}
+              submissions={5}
+            />
         </div>
         <div>
+            <ProfilePageButton
+                icon='../../../assets/blackscrawlcoin-icon.svg'
+                name='Redeem your coins'
+            />
             <ProfilePageButton
                 icon='../../../assets/signout-icon.svg'
                 name='Log Out'

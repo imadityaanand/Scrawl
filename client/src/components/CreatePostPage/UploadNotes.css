@@ -1,9 +1,9 @@
 .createpost {
-    margin: 30px 80px;
+    margin: 3rem 8rem;
 }
 
 .createpost h6 {
-    margin: 0 0 5px 0;
+    margin: 0 0 .5rem 0;
 }
 
 .createpost .upload-button {
@@ -11,15 +11,15 @@
 }
 
 .createpost input {
-    padding: 0 20px;
-    height: 45px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    font-size: 14px;
+    padding: 0 2rem;
+    height: 4.5rem;
+    border: .1rem solid rgba(0, 0, 0, 0.1);
+    border-radius: .1rem;
+    font-size: 1.4rem;
     font-weight: 400;
     background-color: transparent;
-    width: 500px;
-    margin-bottom: 20px;
+    width: 50rem;
+    margin-bottom: 2rem;
 }
 
 .createpost input:focus {
@@ -31,24 +31,24 @@
     height: auto;
     border: none;
     border-radius: 0;
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 400;
     background-color: transparent;
-    width: 500px;
-    margin-bottom: 20px;
+    width: 50rem;
+    margin-bottom: 2rem;
 }
 
 .createpost .file-input::-webkit-file-upload-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px;
-    width: 500px;
-    border-radius: 10px;
-    border: solid 2px rgba(0, 0, 0, 0.1);
+    height: 15rem;
+    width: 50rem;
+    border-radius: 1rem;
+    border: solid .2rem rgba(0, 0, 0, 0.1);
     background-color: white;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.5);
 }

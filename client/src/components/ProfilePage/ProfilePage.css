@@ -1,14 +1,18 @@
+.profilepage .main-container {
+    margin: 0 33rem 0 25rem;
+}
+
 .profileinfocard {
     flex-direction: column;
     justify-content: space-between;
     position: fixed;
-    top: 30px;
-    right: 30px;
-    bottom: 30px;
+    top: 3rem;
+    right: 3rem;
+    bottom: 3rem;
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 30rem;
 }
 
 .profileinfocard .user, .profileinfocard .user .user-info {
@@ -17,12 +21,12 @@
 }
 
 .profileinfocard .user-image {
-    height: 50px;
-    width: 50px;
+    height: 5rem;
+    width: 5rem;
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    margin-right: 20px;
+    margin-right: 2rem;
 }
 
 .profileinfocard p {
@@ -30,12 +34,12 @@
 }
 
 .profileinfocard .name {
-    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: 500;
 }
 
 .profileinfocard .username {
-    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: 500;
     opacity: 0.5;
 }
@@ -43,18 +47,63 @@
 .profileinfocard .edit-btn {
     justify-content: center;
     align-items: center;
-    height: 35px;
-    width: 35px;
+    height: 3.5rem;
+    width: 3.5rem;
     background-color: transparent;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: .1rem solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
 
 .profileinfocard .edit-btn img {
-    height: 15px;
+    height: 1.2rem;
 }
 
 .profileinfocard .edit-btn:hover {
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: .1rem solid rgba(0, 0, 0, 0.5);
+}
+
+.achievementscard {
+    background-color: black;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 5rem;
+    justify-content: space-between;
+}
+
+.achievementscard img {
+    height: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.achievementscard .achievement {
+    flex-direction: column;
+    align-items: center;
+}
+
+.achievementscard .achievement-score {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+}
+
+.achievementscard .score-desc {
+    font-size: .8rem;
+    font-weight: 500;
+    color: white;
+    opacity: 0.5;
+}
+
+.profileactivity {
+    height: 40rem;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileactivity h1 {
+    opacity: 0.3;
+    font-weight: 600;
 }

@@ -8,8 +8,11 @@ function ProfilePage() {
     <div className='profilepage'>
       <Navbar />
         <div className='main-container'>
-            <h1>Profile Page</h1>
-            <ProfileInfoCard />
+          <h6>YOUR ACTIVITY</h6>
+          <div className='profileactivity flex'>
+            <h1>Features Coming Soon</h1>
+          </div>
+          <ProfileInfoCard />
         </div>
     </div>
   )

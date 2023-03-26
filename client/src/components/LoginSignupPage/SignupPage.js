@@ -19,7 +19,18 @@ function SignupPage() {
     await signup(name, email, password);
   }
 
-  function handleCallbackResponse(response) {
+  // function handleCallbackResponse(response) {
+  //   console.log("Encoded JWT ID token: ", response.credential);
+  //   const userObject = jwt_decode(response.credential);
+  //   console.log(userObject);
+
+  //   if(userObject) {
+  //     setGoogleUser(userObject);
+  //     localStorage.setItem('user', JSON.stringify(userObject));
+  //     navigate('/home');
+  //   }
+  // }
+  async function handleCallbackResponse(response) {
     console.log("Encoded JWT ID token: ", response.credential);
     const userObject = jwt_decode(response.credential);
     console.log(userObject);
@@ -27,6 +38,27 @@ function SignupPage() {
     if(userObject) {
       setGoogleUser(userObject);
       localStorage.setItem('user', JSON.stringify(userObject));
+
+      const googleId = userObject.sub;
+      const { name, email, picture } = userObject;
+      const token = response.credential;
+
+
+      const res = await fetch('http://localhost:4000/api/user/googlesignin', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name, email, picture, googleId, token})
+      });
+
+      const json = await res.json();
+
+      if(!res) {
+        console.log("User data not sent to MongoDB");
+        console.log(json.error);
+      } else {
+        console.log("User data saved successfully");
+      }
+      
       navigate('/home');
     }
   }
@@ -74,7 +106,7 @@ function SignupPage() {
                 <div className='line'></div>
             </div>
         </form>
-        <form action="http://localhost:4000/auth/google">
+        <form>
             <button className='loginpage-btn google' id='google-signin' type='submit'>
                 <img src='../../../assets/googlelogo.svg' alt='google'/>
                 Sign Up with Google

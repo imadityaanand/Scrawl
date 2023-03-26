@@ -1,21 +1,21 @@
 .requestcard {
     flex-direction: column;
     justify-content: space-between;
-    width: 700px;
+    width: 70rem;
     height: fit-content;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 13px;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: .1rem solid rgba(0, 0, 0, 0.1);
+    font-size: 1.3rem;
     font-weight: 400;
     background-color: white;
-    margin: 0 0 20px 0;
+    margin: 0 0 2rem 0;
     cursor: pointer;
 }
 
 .requestcard .left-div {
-    min-width: 40px;
-    margin-right: 20px;
+    min-width: 4rem;
+    margin-right: 2rem;
 }
 
 .requestcard .right-div {
@@ -26,19 +26,19 @@
 
 .request-content {
     /* justify-content: space-between; */
-    margin: 30px 0 0;
+    margin: 3rem 0 0;
 }
 
 .requestcard .user-image {
-    height: 40px;
-    width: 40px;
+    height: 4rem;
+    width: 4rem;
     border-radius: 50%;
     background-size: cover;
 }
 
 .requestcard .request-text {
-    width: 600px;
-    margin: 0 0 20px 0;
+    width: 60rem;
+    margin: 0 0 2rem 0;
 }
 
 .requestcard .username {
@@ -46,7 +46,7 @@
 }
 
 .request-info p {
-    margin: 0 20px 0 0;
+    margin: 0 2rem 0 0;
 }
 
 
@@ -56,6 +56,7 @@
 @media (max-width:600px) {
     .requestcard {
         width: 100%;
+        font-size: 1.4rem;
     }
 
     .requestcard .request-text {

@@ -107,14 +107,16 @@ const Pdf = mongoose.model('Pdf', pdfSchema);
 
 app.post('/upload', upload.single('pdf'), async (req, res) => {
   console.log('File upload request received');
-  const filePath = req.file.path;
   const { title, description, tags } = req.body;
-  const fileContent = fs.readFileSync(filePath);
-  const compressedContent = zlib.gzipSync(fileContent);
-  const pdf = new Pdf({ title, description, tags, data: compressedContent });
-  await pdf.save();
-  console.log("File uploaded successfully");
-  res.send('File uploaded successfully');
+  if(filePath) {
+    const filePath = req.file.path;
+    const fileContent = fs.readFileSync(filePath);
+    const compressedContent = zlib.gzipSync(fileContent);
+    const pdf = new Pdf({ title, description, tags, data: compressedContent });
+    await pdf.save();
+    console.log("File uploaded successfully");
+    res.send('File uploaded successfully');
+  }
 });
 
 

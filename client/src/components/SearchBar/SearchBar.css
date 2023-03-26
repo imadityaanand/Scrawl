@@ -1,22 +1,22 @@
 .searchbar {
     display: flex;
     align-items: center;
-    height: 45px;
-    width: 450px;
+    height: 4.5rem;
+    width: 45rem;
     background-color: white;
-    border-radius: 45px;
-    margin-bottom: 30px;
+    border-radius: 4.5rem;
+    margin-bottom: 3rem;
 }
 
 .searchbar .icon {
-    margin: 0 20px;
-    height: 18px;
+    margin: 0 2rem;
+    height: 1.8rem;
 }
 
 .searchbar input {
-    height: 45px;
-    width: 400px;
-    font-size: 14px;
+    height: 4.5rem;
+    width: 40rem;
+    font-size: 1.4rem;
     font-weight: 500;
     border: none;
 }
@@ -39,5 +39,6 @@
 
     .searchbar input {
         width: 100%;
+        font-size: 1.5rem;
     }
 }

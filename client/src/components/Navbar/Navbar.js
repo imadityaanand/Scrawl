@@ -33,7 +33,11 @@ function Navbar() {
                     <Navbutton icon='../../../assets/heart-icon.svg' name='Liked Notes' active={isActive === 'liked' ? 'active' : null} click={() => {HandleClick('liked')}} />
                 </div>
                 <div>
-                    <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
+                    {
+                        window.location.pathname === '/requests'
+                        ? <Link to='/submitrequest'><div className='upload-button'>Submit your Request</div></Link>
+                        : <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
+                    }
                     <ProfileButton
                         image={picture ? picture : '../../../assets/aditya.png'}
                         name={name}
@@ -46,8 +50,12 @@ function Navbar() {
         )    
     } else {
         return (
-            <>
-                <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
+            <>  
+                {
+                    window.location.pathname === '/requests'
+                    ? <Link to='/submitrequest'><div className='upload-button'>Submit your Request</div></Link>
+                    : <Link to='/createpost'><div className='upload-button'>Upload your Notes</div></Link>
+                }
                 <div className='navbar'>
                     <Navbutton icon='../../../assets/home-icon.svg' name='Home' active={isActive === 'home' ? 'active' : null} click={() => {HandleClick('home')}} />
                     <Navbutton icon='../../../assets/requests-icon.svg' name='Requests' active={isActive === 'requests' ? 'active' : null} click={() => {HandleClick('requests')}} />
