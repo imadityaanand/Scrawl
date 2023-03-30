@@ -100,7 +100,7 @@ const googleSigninUser = async (req, res) => {
     // }
 
     try {
-        const user = await User.googleSignin(name, username, email, picture, googleId);
+        const user = await User.googleSignin(name, email, picture, googleId);
         res.status(200).json({name, email, picture, googleId, token});
     } catch(error) {
         res.status(400).json({error: error.message});
