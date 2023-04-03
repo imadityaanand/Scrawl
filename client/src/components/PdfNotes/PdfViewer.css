@@ -17,14 +17,14 @@
     width: 100vw;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
+    padding: 2rem 3rem;
     z-index: 3;
 }
 
 .dark-button {
     /* position: absolute; */
-    top: 50px;
-    right: 50px;
+    top: 5rem;
+    right: 5rem;
 }
 
 .pdf-navbar {
@@ -33,14 +33,14 @@
     justify-content: flex-end;
     align-items: center;
     position: fixed;
-    bottom: 50px;
+    bottom: 5rem;
     margin: auto;
-    padding: 0 30px;
+    padding: 0 3rem;
     z-index: 3;
 }
 
 .pdf-navbar span {
-    font-size: 15px;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 

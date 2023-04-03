@@ -29,7 +29,7 @@ userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
 // Static Signup method
-userSchema.statics.signup = async function(email, password, name) {
+userSchema.statics.signup = async function(email, password, name, username) {
     const exists = await this.findOne({ email });
 
     // Validation
@@ -50,7 +50,7 @@ userSchema.statics.signup = async function(email, password, name) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const user = await this.create({ email, password: hash, name });
+    const user = await this.create({ email, password: hash, name, username });
 
     return user;
 }

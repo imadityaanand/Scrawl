@@ -13,7 +13,7 @@ function HomePage() {
     if(!localStorage.getItem('user')) {
       navigate('/login');
     }
-  }, []);
+  });
 
   return (
     <div className='homepage'>

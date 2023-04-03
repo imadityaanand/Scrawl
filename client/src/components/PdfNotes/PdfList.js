@@ -7,14 +7,14 @@ function PdfList() {
 
     useEffect(() => {
         const fetchPdfs = async () => {
-            const response = await axios.get('http://localhost:4000/pdfs');
+            const response = await axios.get(process.env.REACT_APP_SERVER + 'pdfs');
             setPdfs(response.data);
         }
         fetchPdfs();
     }, []);
 
     return (
-        <div className="pdf-list">
+        <div className="pdf-list flex cards-container">
           {pdfs.map(pdf => <PdfCard key={pdf._id} pdf={pdf} image='../../../assets/notes1.png' />)}
         </div>
     );

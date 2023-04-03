@@ -10,7 +10,6 @@ function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {signup, error, isLoading} = useSignup();
-  const [googleUser, setGoogleUser] = useState({});
   const navigate = useNavigate();
 
   async function HandleSubmit(e) {
@@ -19,14 +18,45 @@ function SignupPage() {
     await signup(name, email, password);
   }
 
-  function handleCallbackResponse(response) {
+  // function handleCallbackResponse(response) {
+  //   console.log("Encoded JWT ID token: ", response.credential);
+  //   const userObject = jwt_decode(response.credential);
+  //   console.log(userObject);
+
+  //   if(userObject) {
+  //     setGoogleUser(userObject);
+  //     localStorage.setItem('user', JSON.stringify(userObject));
+  //     navigate('/home');
+  //   }
+  // }
+  async function handleCallbackResponse(response) {
     console.log("Encoded JWT ID token: ", response.credential);
     const userObject = jwt_decode(response.credential);
     console.log(userObject);
 
     if(userObject) {
-      setGoogleUser(userObject);
-      localStorage.setItem('user', JSON.stringify(userObject));
+      const googleId = userObject.sub;
+      const { name, email, picture } = userObject;
+      const token = response.credential;
+
+
+      const res = await fetch(process.env.REACT_APP_SERVER + 'api/user/googlesignin', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name, email, picture, googleId, token})
+      });
+
+      const json = await res.json();
+
+      localStorage.setItem('user', JSON.stringify(json));
+
+      if(!res) {
+        console.log("User data not sent to MongoDB");
+        console.log(json.error);
+      } else {
+        console.log("User data saved successfully");
+      }
+      
       navigate('/home');
     }
   }
@@ -38,6 +68,7 @@ function SignupPage() {
       callback: handleCallbackResponse
     })
 
+
     google.accounts.id.renderButton(
       document.getElementById('google-signin'),
       {
@@ -45,7 +76,7 @@ function SignupPage() {
         size: 'medium'
       }
     );
-  })
+  }, [])
 
   return (
     <div className='login'>
@@ -74,7 +105,7 @@ function SignupPage() {
                 <div className='line'></div>
             </div>
         </form>
-        <form action="http://localhost:4000/auth/google">
+        <form>
             <button className='loginpage-btn google' id='google-signin' type='submit'>
                 <img src='../../../assets/googlelogo.svg' alt='google'/>
                 Sign Up with Google

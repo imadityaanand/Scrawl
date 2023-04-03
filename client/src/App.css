@@ -5,13 +5,13 @@
 }
 
 h1 {
-    font-size: 23px;
+    font-size: 2.3rem;
 }
 
 h6 {
-    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: 600;
-    margin: 40px 0 16px;
+    margin: 4rem 0 1.6rem;
 }
 
 .flex {
@@ -19,8 +19,8 @@ h6 {
 }
 
 .main-container {
-    margin: 0 0 0 250px;
-    padding: 30px;
+    margin: 0 0 0 25rem;
+    padding: 3rem;
     /* background-color: aqua; */
 }
 
@@ -29,12 +29,12 @@ h6 {
     justify-content: center;
     align-items: center;
     background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    min-width: 130px;
-    padding: 10px 10px;
-    margin: 0 10px 0 0;
-    font-size: 14px;
+    border: .1rem solid rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    min-width: 13rem;
+    padding: 1rem;
+    margin: 0 1rem 0 0;
+    font-size: 1.4rem;
     font-weight: 600;
 }
 
@@ -52,8 +52,16 @@ h6 {
 
 @media (max-width:600px) {
     .main-container {
-        margin: 0 0 100px 0;
-        padding: 30px 20px;
+        margin: 0 0 10rem 0;
+        padding: 3rem 2rem;
+    }
+
+    h6 {
+        font-size: 1.5rem;
+    }
+
+    .category-button {
+        font-size: 1.5rem;
     }
 }
   

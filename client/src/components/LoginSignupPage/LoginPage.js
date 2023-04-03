@@ -59,20 +59,22 @@ function LoginPage() {
 
     if(userObject) {
       setGoogleUser(userObject);
-      localStorage.setItem('user', JSON.stringify(userObject));
 
       const googleId = userObject.sub;
       const { name, email, picture } = userObject;
       const token = response.credential;
 
 
-      const res = await fetch('/api/user/googlesignin', {
+      const res = await fetch('http://localhost:4000/api/user/googlesignin', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({name, email, picture, googleId, token})
       });
 
       const json = await res.json();
+
+
+      localStorage.setItem('user', JSON.stringify(json));
 
       if(!res) {
         console.log("User data not sent to MongoDB");

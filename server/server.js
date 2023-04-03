@@ -9,14 +9,13 @@ app.use(cors({
 
 const mongoose = require('mongoose');
 const session = require("express-session");
-const passport = require("passport");
 
 const multer = require('multer');
 const fs = require('fs');
 
 const zlib = require('zlib');
-
 const jwt = require('jsonwebtoken');
+const pdfjsLib = require('pdfjs-dist');
 
 
 const User = require('./models/userModel');
@@ -101,20 +100,37 @@ const pdfSchema = new mongoose.Schema({
   title: String,
   description: String,
   tags: [String],
-  data: Buffer
+  data: Buffer,
+  numPages: Number,
+  username: String,
+  likes: Number
 });
 const Pdf = mongoose.model('Pdf', pdfSchema);
 
 app.post('/upload', upload.single('pdf'), async (req, res) => {
   console.log('File upload request received');
-  const filePath = req.file.path;
   const { title, description, tags } = req.body;
-  const fileContent = fs.readFileSync(filePath);
-  const compressedContent = zlib.gzipSync(fileContent);
-  const pdf = new Pdf({ title, description, tags, data: compressedContent });
-  await pdf.save();
-  console.log("File uploaded successfully");
-  res.send('File uploaded successfully');
+  const filePath = req.file.path;
+    const fileContent = fs.readFileSync(filePath);
+    const compressedContent = zlib.gzipSync(fileContent);
+
+    async function savePdf() {
+      const doc = await pdfjsLib.getDocument(filePath).promise;
+      let numPages = doc.numPages;
+      console.log(numPages);
+      const pdf = new Pdf({
+        title,
+        description,
+        tags,
+        data: compressedContent,
+        numPages
+      });
+      await pdf.save();
+    }
+    
+    savePdf();
+    console.log("File uploaded successfully");
+    res.send('File uploaded successfully');
 });
 
 
@@ -126,48 +142,13 @@ app.get('/pdfs', async (req, res) => {
   res.send(pdfs);
 });
 
-// handle pdf view requests
 
-// app.get('/pdfs/:id', async (req, res) => {
-//   const id = req.params.id;
-//   const pdf = await Pdf.findById(id);
-
-//   if (!pdf) {
-//     return res.status(404).send('Pdf not found');
-//   }
-
-//   const pdfPath = path.join(__dirname, 'uploads', `${pdf._id}`);
-//   fs.writeFileSync(pdfPath, pdf.data);
-
-//   res.sendFile(pdfPath, { headers: { 'Content-Type': 'application/pdf' } }, (err) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(err.status).end();
-//     } else {
-//       fs.unlinkSync(pdfPath);
-//     }
-//   });
-// });
+// Handle pdf view requests
 
 app.get('/pdf/:id', async (req, res) => {
   const pdf = await Pdf.findById(req.params.id);
   const decompressedContent = zlib.gunzipSync(pdf.data);
+  // console.log(pdf.data);
   res.set('Content-Type', 'application/pdf');
   res.send(decompressedContent);
-  // res.send("pdf")
-
-  // const pdf = await Pdf.findById(req.params.id);
-  // const decompressedContent = zlib.gunzipSync(pdf.data);
-  // res.set('Content-Type', 'application/pdf');
-  // res.contentType("application/pdf");
-  // res.send(decompressedContent);
 });
-
-
-
-
-
-////////////
-// app.listen(process.env.PORT, () => {
-//   console.log('Server started on port', process.env.PORT);
-// });

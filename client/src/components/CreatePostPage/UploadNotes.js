@@ -10,6 +10,7 @@ function UploadNotes() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [tags, setTags] = useState("");
+    const [error, setError] = useState("");
 
     const handleFileInputChange = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -29,14 +30,20 @@ function UploadNotes() {
     }
 
     const handleFileUpload = () => {
-        const formData = new FormData();
-        formData.append('pdf', selectedFile);
-        formData.append('title', title);
-        formData.append('description', description);
-        formData.append('tags', tags.split(", "));
-        axios.post('http://localhost:4000/upload', formData)
-          .then(response => console.log(response.data))
-          .catch(error => console.log(error));
+        if(title === '' || description === '' || tags==='') {
+            setError('All fields must be filled');
+        } else if(selectedFile === null) {
+            setError('Choose a file to upload');
+        } else {
+            const formData = new FormData();
+            formData.append('pdf', selectedFile);
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('tags', tags.split(", "));
+            axios.post(process.env.REACT_APP_SERVER + 'upload', formData)
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error));
+        }
     }
 
 
@@ -47,6 +54,7 @@ function UploadNotes() {
                 <h2>Create Post</h2>
             </div>
             
+            {error}
             <h6>Title</h6>
             <input type="text" name="title" onChange={handleTitleInputChange} placeholder="Title" />
             <br />
