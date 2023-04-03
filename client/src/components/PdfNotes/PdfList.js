@@ -7,7 +7,7 @@ function PdfList() {
 
     useEffect(() => {
         const fetchPdfs = async () => {
-            const response = await axios.get('http://localhost:4000/pdfs');
+            const response = await axios.get(process.env.REACT_APP_SERVER + 'pdfs');
             setPdfs(response.data);
         }
         fetchPdfs();
