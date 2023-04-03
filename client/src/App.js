@@ -10,8 +10,8 @@ import RequestsPage from './components/RequestsPage/RequestsPage';
 import NotificationsPage from './components/NotificationsPage/NotificationsPage';
 import SavedPage from './components/SavedPage/SavedPage';
 import LikedPage from './components/LikedPage/LikedPage';
-import { useEffect } from 'react';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 
 function App() {
 
@@ -28,6 +28,7 @@ function App() {
       <Route path='/liked' element={<LikedPage />} />
       <Route path='/profile' element={<ProfilePage />} />
       <Route path='/pdf/:id' element={<ViewPage />} />
+      <Route path='*' element={<PageNotFound />} />
     </Routes>
   );
 }

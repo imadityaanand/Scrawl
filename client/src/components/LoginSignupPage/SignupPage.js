@@ -10,7 +10,6 @@ function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {signup, error, isLoading} = useSignup();
-  const [googleUser, setGoogleUser] = useState({});
   const navigate = useNavigate();
 
   async function HandleSubmit(e) {
@@ -36,9 +35,6 @@ function SignupPage() {
     console.log(userObject);
 
     if(userObject) {
-      setGoogleUser(userObject);
-      localStorage.setItem('user', JSON.stringify(userObject));
-
       const googleId = userObject.sub;
       const { name, email, picture } = userObject;
       const token = response.credential;
@@ -51,6 +47,8 @@ function SignupPage() {
       });
 
       const json = await res.json();
+
+      localStorage.setItem('user', JSON.stringify(json));
 
       if(!res) {
         console.log("User data not sent to MongoDB");
@@ -70,6 +68,7 @@ function SignupPage() {
       callback: handleCallbackResponse
     })
 
+
     google.accounts.id.renderButton(
       document.getElementById('google-signin'),
       {
@@ -77,7 +76,7 @@ function SignupPage() {
         size: 'medium'
       }
     );
-  })
+  }, [])
 
   return (
     <div className='login'>

@@ -20,12 +20,12 @@
     margin: 1rem 1rem 0;
 }
 
-.notescard-home .username, .notescard-home .pages {
+.pdf-card .username, .pdf-card .pages {
     opacity: 0.5;
     margin: 1rem;
 }
 
-.notescard-home .info {
+.pdf-card .info {
     justify-content: space-between;
 }
 

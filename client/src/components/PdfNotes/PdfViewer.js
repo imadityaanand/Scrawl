@@ -27,14 +27,16 @@ function PdfViewer({ id }) {
       const data = response.data;
       console.log(data);
       setPdfData(await response.data.arrayBuffer());
-      console.log(pdfData)
       // setPdfData(pdfData);
       setLoading(false);
     };
     fetchData();
   }, [id]);
 
+ 
+
   function onDocumentLoadSuccess({ numPages }) {
+    console.log("Initial: ", numPages);
     setNumPages(numPages);
   }
 
