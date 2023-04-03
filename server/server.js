@@ -9,7 +9,6 @@ app.use(cors({
 
 const mongoose = require('mongoose');
 const session = require("express-session");
-const passport = require("passport");
 
 const multer = require('multer');
 const fs = require('fs');
@@ -115,36 +114,6 @@ app.post('/upload', upload.single('pdf'), async (req, res) => {
     const fileContent = fs.readFileSync(filePath);
     const compressedContent = zlib.gzipSync(fileContent);
 
-    // async function getNumPages(pdfPath) {
-    //   const doc = await pdfjsLib.getDocument(filePath).promise;
-    //   return doc.numPages;
-    // }
-
-    // async function waitForNumPages() {
-    //   pages = await getNumPages(filePath);
-    //   return pages;
-    // }
-
-    // waitForNumPages().then(
-    //   console.log(pages)
-    // ).catch((err) => {
-    //   console.log(err);
-    // })
-
-    // const pages = pdfjsLib.getDocument(filePath).promise.then(async function (doc) {
-    //   let numPages = doc.numPages;
-    //   return numPages;
-    // })
-
-    // const pdf = new Pdf({
-    //   title,
-    //   description,
-    //   tags,
-    //   data: compressedContent,
-    //   numPages
-    // });
-    // await pdf.save();
-
     async function savePdf() {
       const doc = await pdfjsLib.getDocument(filePath).promise;
       let numPages = doc.numPages;
@@ -173,49 +142,13 @@ app.get('/pdfs', async (req, res) => {
   res.send(pdfs);
 });
 
-// handle pdf view requests
 
-// app.get('/pdfs/:id', async (req, res) => {
-//   const id = req.params.id;
-//   const pdf = await Pdf.findById(id);
-
-//   if (!pdf) {
-//     return res.status(404).send('Pdf not found');
-//   }
-
-//   const pdfPath = path.join(__dirname, 'uploads', `${pdf._id}`);
-//   fs.writeFileSync(pdfPath, pdf.data);
-
-//   res.sendFile(pdfPath, { headers: { 'Content-Type': 'application/pdf' } }, (err) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(err.status).end();
-//     } else {
-//       fs.unlinkSync(pdfPath);
-//     }
-//   });
-// });
+// Handle pdf view requests
 
 app.get('/pdf/:id', async (req, res) => {
   const pdf = await Pdf.findById(req.params.id);
   const decompressedContent = zlib.gunzipSync(pdf.data);
-  console.log(pdf.data);
+  // console.log(pdf.data);
   res.set('Content-Type', 'application/pdf');
   res.send(decompressedContent);
-  // res.send("pdf")
-
-  // const pdf = await Pdf.findById(req.params.id);
-  // const decompressedContent = zlib.gunzipSync(pdf.data);
-  // res.set('Content-Type', 'application/pdf');
-  // res.contentType("application/pdf");
-  // res.send(decompressedContent);
 });
-
-
-
-
-
-////////////
-// app.listen(process.env.PORT, () => {
-//   console.log('Server started on port', process.env.PORT);
-// });
