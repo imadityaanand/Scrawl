@@ -21,7 +21,7 @@ function PdfViewer({ id }) {
       // const response = await axios.get(`http://localhost:4000/pdf/${id}`, {
       //   responseType: 'arraybuffer',
       // });
-      const response = await axios.get(`http://localhost:4000/pdf/${id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER}pdf/${id}`, {
         responseType: 'blob',
       });
       const data = response.data;

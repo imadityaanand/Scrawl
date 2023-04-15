@@ -40,7 +40,7 @@ function UploadNotes() {
             formData.append('title', title);
             formData.append('description', description);
             formData.append('tags', tags.split(", "));
-            axios.post('http://localhost:4000/upload', formData)
+            axios.post(process.env.REACT_APP_SERVER + 'upload', formData)
             .then(response => console.log(response.data))
             .catch(error => console.log(error));
         }

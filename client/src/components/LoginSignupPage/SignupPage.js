@@ -40,7 +40,7 @@ function SignupPage() {
       const token = response.credential;
 
 
-      const res = await fetch('http://localhost:4000/api/user/googlesignin', {
+      const res = await fetch(process.env.REACT_APP_SERVER + 'api/user/googlesignin', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({name, email, picture, googleId, token})
