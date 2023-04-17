@@ -15,6 +15,8 @@ const zlib = require('zlib');
 const jwt = require('jsonwebtoken');
 const pdfjsLib = require('pdfjs-dist');
 
+const events = require('events');
+
 
 const User = require('./models/userModel');
 
@@ -69,8 +71,14 @@ mongoose.connect(process.env.MONGO_URI)
 // mongoose.set('useCreateIndex', true);
 
 
+// NodeJS Events
+const eventEmitter = new events.EventEmitter();
 
+const testListener = function testListener() {
+  console.log("Test Listener executed successfully.");
+}
 
+eventEmitter.on('openpdf', testListener);
 
 
 // Uploading Notes
@@ -151,6 +159,7 @@ app.get('/pdf/:id', async (req, res) => {
   const pdf = await Pdf.findById(req.params.id);
   const decompressedContent = zlib.gunzipSync(pdf.data);
   // console.log(pdf.data);
+  eventEmitter.emit('openpdf');
   res.set('Content-Type', 'application/pdf');
   res.send(decompressedContent);
 });
