@@ -15,7 +15,7 @@ function PdfList() {
 
     return (
         <div className="pdf-list flex cards-container">
-          {pdfs.map(pdf => <PdfCard key={pdf._id} pdf={pdf} image='../../../assets/notes1.png' />)}
+          {pdfs.map(pdf => <PdfCard key={pdf._id} pdf={pdf} />)}
         </div>
     );
 }
