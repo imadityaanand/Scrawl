@@ -152,10 +152,16 @@ app.get('/pdfs', async (req, res) => {
   res.send(pdfs);
 });
 
+app.get('/pdf/:id', async (req, res) => {
+  const pdfs = await Pdf.find({_id: req.params.id});
+  // console.log(pdfs);
+  res.send(pdfs);
+});
+
 
 // Handle pdf view requests
 
-app.get('/pdf/:id', async (req, res) => {
+app.get('/viewpdf/:id', async (req, res) => {
   const pdf = await Pdf.findById(req.params.id);
   const decompressedContent = zlib.gunzipSync(pdf.data);
   // console.log(pdf.data);
