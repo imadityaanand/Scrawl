@@ -14,6 +14,7 @@
 .notescard-home .notes-thumb, .pdf-card .notes-thumb {
     height: 8rem;
     background-size: cover;
+    background-color: #E2E2E2;
 }
 
 .notescard-home .title, .pdf-card .title {

@@ -13,7 +13,7 @@ function PdfCard({ pdf, image }, props) {
     return (
         <div className="pdf-card" onClick={viewPdf}>
             <div className='notes-thumb' style={{backgroundImage: 'url(' + image + ')'}}></div>
-            <p className='title'>{pdf.title}</p>
+            <p className='title'>{pdf.title || props.title}</p>
             {/* <p>{pdf.description}</p> */}
             {/* <div className="tags">
             {pdf.tags.map(tag => <span key={tag}>{tag}</span>)}
